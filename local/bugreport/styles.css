@@ -1,0 +1,395 @@
+/*
+    Document   : errormodule
+    Created on : 22.11.2013, 9:44:12
+    Author     : PragoData
+
+    modified by uint for MU, Jan 2015
+    fixes by krejci, Feb 2015
+*/
+
+
+/* general stuff */
+
+.ui-widget-content {overflow: hidden; z-index: 5000;}
+.ui-resizable-helper {z-index: 5001 !important;}
+.ui-dialog .ui-dialog-content {position: relative; border: 0px; padding: 10px 15px; overflow: auto;}
+.ui-dialog-buttonset {padding: 5px;}
+.ui-draggable .ui-dialog-titlebar {cursor: move;}
+.ui-widget-overlay {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #222; opacity: .5; filter: Alpha(Opacity=50); z-index: 666;}
+
+
+/* report btn */
+
+button#report-bug {
+    position: fixed; bottom: 0; right: 20px;
+    height: 40px; line-height: 40px;
+    padding: 0 45px 0 15px; margin: 0;
+    border: none; border-radius: 5px 5px 0 0;
+    color: #fff;
+    font-family: pt_sansbold, sans-serif; font-size: 14px; letter-spacing: 1px; font-weight: normal; text-transform: uppercase;
+    cursor: pointer;
+    background-color: #9fa0a0; background-color: rgba(119,119,119,.5); transition: background-color .25s;
+    background-image: url([[pix:local_bugreport|ico_qmark]]); background-repeat: no-repeat; background-position: right center;
+    text-shadow: none;
+}
+
+@media (max-height: 1024px), (max-width: 1024px){
+    button#report-bug {height: 25px; line-height: 27px;}
+
+}
+
+button#report-bug:hover {background-color: #a4333c; background-color: rgba(164,51,60,.98); transition: none;}
+
+
+/* general dialog */
+
+.bugrep {border: 0; box-shadow: 0 0 25px rgba(0,0,0,.25); border-radius: 5px 5px 0 0;}
+
+.bugrep .ui-widget-header {
+    background-color: #a4333c; background-color: rgba(164,51,60,.98);
+    color: #fff;
+    font-family: pt_sansbold, sans-serif; font-size: 14px; letter-spacing: 1px; font-weight: normal; text-transform: uppercase;
+}
+
+.bugrep .ui-dialog-titlebar {
+    padding: 5px 15px; height: 30px; line-height: 30px;
+    position: relative;
+    /*box-shadow: 0 10px 10px rgba(0,0,0,.5);*/
+}
+
+.bugrep .ui-dialog-titlebar-close {
+    position: absolute; right: 0; top: 0;
+    height: 40px; width: 40px;
+    border: 0; border-radius: 0 5px 0 0; box-shadow: none;
+    background: transparent url([[pix:local_bugreport|ico_close]]) no-repeat center center; transition: background-color .25s;
+}
+    .bugrep .ui-dialog-titlebar-close:hover {background-color: rgba(0,0,0,.25); transition: none;}
+    .bugrep .ui-dialog-titlebar-close .ui-icon, .bugrep .ui-dialog-titlebar-close .ui-button-text  {display: none; }
+
+
+/* common dialog */
+
+.bugrep #dialog-faq {background: #555; background: rgba(75,75,75,.93);
+    box-shadow: none; border-radius: 0; color: #fff;
+    }
+
+.bugrep .ui-dialog-buttonpane {border: 0; background: #555; background: rgba(75,75,75,.93); padding: 15px 0; border-radius: 0; box-shadow: none;}
+.bugrep .ui-dialog-buttonset {padding: 0 15px;}
+.bugrep button {font-family: pt_sansbold, sans-serif; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; font-weight: normal;}
+.bugrep .ui-widget-content {background: #555; background: rgba(75,75,75,.93);
+    box-shadow: none; border-radius: 0; color: #fff;
+    }
+
+
+/* faq dialog */
+
+#bugrep-faq-show, #bugrep-faq-continue {height: 40px; line-height: 40px; margin: 0; padding: 0 40px 0 15px;
+    color: #fff; background: #444; border: 0; border-radius: 0;
+    text-shadow: none; box-shadow: 0 0 10px rgba(0,0,0,.25); transition: background-color .25s;
+    }
+
+#bugrep-faq-show {background: #336e93 url([[pix:local_bugreport|ico_qmark]]) no-repeat right 11px;}
+#bugrep-faq-continue {background: #438b48 url([[pix:local_bugreport|ico_onward]]) no-repeat right 11px; float: right;}
+
+#bugrep-faq-show:hover {background-color: #26526e; transition: none;}
+#bugrep-faq-continue:hover {background-color: #326836; transition: none;}
+
+#faq-choice {font-family: pt_sansbold, sans-serif; font-size: 14px; letter-spacing: 1px; font-weight: normal; text-transform: uppercase;
+    padding-top: 15px;
+    }
+#faq-content {display: none; padding-top: 15px;}
+
+
+/* type dialog */
+
+.bugrep-type button {font-family: pt_sansbold, sans-serif; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; font-weight: normal;
+    height: 40px; line-height: 40px; margin: 0; padding: 0 40px 0 15px;
+    color: #fff; background: #444; border: 0; border-radius: 0;
+    text-shadow: none; box-shadow: 0 0 10px rgba(0,0,0,.25); transition: background-color .25s;
+    background: #438b48 url([[pix:local_bugreport|ico_onward]]) no-repeat right 11px; float: right;}
+.bugrep-type button:hover {background-color: #326836; transition: none;}
+
+#bugrep-type1 {float: left;}
+
+
+.bugrep-type p {
+font-family: pt_sansbold, sans-serif;
+font-size: 14px;
+letter-spacing: 1px;
+font-weight: normal;
+text-transform: uppercase;
+padding-top: 15px;
+}
+
+/* simple dialog */
+
+.bugrep-simple button {font-family: pt_sansbold, sans-serif; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; font-weight: normal;
+    height: 40px; line-height: 40px; margin: 0; padding: 0 40px 0 15px;
+    color: #fff; background: #444; border: 0; border-radius: 0;
+    text-shadow: none; box-shadow: 0 0 10px rgba(0,0,0,.25); transition: background-color .25s;
+    background: #438b48 url([[pix:local_bugreport|ico_onward]]) no-repeat right 11px; float: right;}
+.bugrep-simple button:hover {background-color: #326836; transition: none;}
+
+.bugrep-simple textarea {display: block; width: 300px; min-height: 150px;  background: #222; color: #fff;
+    padding: 10px;
+    resize: none;
+    }
+
+
+/* screenshot dialog */
+
+.bugrep-scr .ui-dialog-titlebar {
+    position: fixed; left: 0; right: 0; top: 0; z-index: 5001;
+}
+
+.bugrep-scr .ui-widget-content {
+    margin-top: 40px;
+    border: 1px solid #aaa;
+    background: #eee;
+    color: #222;
+    border-radius: 0;
+    /*box-shadow: 0 0 10px #bbb;*/
+    overflow: hidden;
+    z-index: 5000;
+}
+
+#dialog-screenshot {
+    text-align: center;
+}
+
+#dialog-screenshot #screenshot_inner {
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #aa3b50;
+    box-shadow: 0 0 10px #aa3b50;
+    display: inline-block;
+    width: 80%;
+    background: #fff;
+}
+
+
+.bugrep-scr button {height: 40px; line-height: 40px; margin-left: 0; padding: 0 45px 0 15px;
+    color: #fff; background: #444; border: 0; border-radius: 0;
+    font-family: pt_sansbold, sans-serif; font-size: 14px; letter-spacing: 1px; font-weight: normal; text-transform: uppercase;
+    text-shadow: none; box-shadow: 0 0 10px rgba(0,0,0,.25); transition: background-color .25s;
+    background: #438b48 url([[pix:local_bugreport|ico_onward]]) no-repeat right 11px; float: right;}
+
+    .bugrep-scr button:hover {background-color: #326836; transition: none;}
+
+.bugrep-scr .continue-butt-top {
+    position: absolute;
+    right: 60px;
+    top: 0;
+    margin: 0;
+}
+
+.bugrep-scr .ui-dialog-buttonpane {
+    border: 0;
+    background: #555; background: rgba(75,75,75,.93);
+    padding: 5px;
+    border-radius: 0;
+    box-shadow: none;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 5001;
+}
+
+.bugrep-scr .ui-dialog-buttonpane button {margin: 0;}
+
+
+.marker {
+    width: 390px;
+    z-index: 10;
+    cursor: move;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.marker_name {}
+
+.marker_head {
+    background-color: #a4333c; background-color: rgba(164,51,60,.98);
+    color: #fff; text-align: left;
+    font-family: pt_sansbold, sans-serif; font-size: 14px; letter-spacing: 1px; font-weight: normal; text-transform: uppercase;
+    padding: 5px 10px; height: 30px; line-height: 30px;
+    position: relative;
+    box-shadow: none; border: 0; border-radius: 5px 5px 0 0;
+}
+
+.marker_content {padding-left: 100px; border: 4px solid #484848; border-color: rgba(70,70,70,.91);
+    background: url([[pix:local_bugreport|loc]]) no-repeat 20px 30px;
+    }
+
+.marker_remove {
+    position: absolute; right: 0; top: 0;
+    height: 40px; width: 40px;
+    border: 0; border-radius: 0 5px 0 0; box-shadow: none;
+    background: transparent url([[pix:local_bugreport|ico_close]]) no-repeat center center; transition: background-color .25s;
+    cursor: pointer;
+}
+    .marker_remove:hover {background-color: rgba(0,0,0,.25); transition: none;}
+
+
+
+.marker_name textarea {
+    margin: 0;
+    background: #e1e1e1; box-shadow: none;
+    resize: none;
+    width: 256px;
+    border: 0; border-radius: 0; border-left: 4px solid #484848; border-color: rgba(70,70,70,.91);
+    padding: 10px;
+    min-height: 100px;
+}
+
+
+
+
+.ui-resizable-n { cursor: n-resize; height: 7px; width: 100%; top: -5px; left: 0; }
+.ui-resizable-e { cursor: e-resize; width: 7px; right: -5px; top: 0; height: 100%; }
+.ui-resizable-s { cursor: s-resize; height: 7px; width: 100%; bottom: -5px; left: 0; }
+.ui-resizable-w { cursor: w-resize; width: 7px; left: -5px; top: 0; height: 100%; }
+.ui-resizable-se { width: 12px; height: 12px; right: -5px; bottom: -5px; background-position: 16px 16px; cursor: se-resize; }
+.ui-resizable-sw { cursor: sw-resize; width: 9px; height: 9px; left: -5px; bottom: -5px; }
+.ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: -5px; top: -5px; }
+.ui-resizable-nw { cursor: nw-resize; width: 9px; height: 9px; left: -5px; top: -5px; }
+
+.ui-resizable-handle {
+    position: absolute;
+    font-size: 0.1px;
+    display: block;
+}
+
+.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {
+    border: 1px solid #cd0a0a;
+    background-color: #fef1ec;
+    color: #cd0a0a;
+}
+
+
+
+#dialog-form form fieldset {
+    margin-top: 0px !important;
+}
+
+.ui-resizable-helper { border: 1px dotted #000; }
+
+
+
+.buttonset {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: #ccc;
+    padding: 5px;
+}
+
+.buttonset button {
+    border: 1px solid #d3d3d3;
+    background-color: #e6e6e6;
+    font-weight: normal;
+    color: #555;
+    padding: 5px 8px;
+}
+
+.screenshot_introtext {
+    margin-bottom: 15px;
+}
+
+.screenshot_introtext h2 {
+    margin-bottom: 10px;
+}
+
+textarea#detailni_popis {
+    width: 100%;
+}
+
+.browserError {
+    border: none !important;
+    color: red;
+}
+
+.ui-tooltip {
+    display: inline-block;
+    z-index: 100001;
+    padding: 10px;
+}
+
+.req_star {
+    color: red;
+}
+/*
+    Document   : report_table
+    Created on : 10.12.2013, 10:04:12
+    Author     : PragoData
+*/
+
+/*
+* {
+    font-family: "Arial", helvetica, sans-serif;
+    font-size: 13px;
+}
+*/
+
+h1 {
+    font-size: 24px;
+    text-align: center;
+}
+
+.redirectmessage {
+    margin-top: 5% !important;
+}
+
+table.reportErrorTable {
+    border: 1px solid #eee;
+    border-collapse: collapse;
+
+    margin: 0px auto 15px auto;
+
+    box-shadow: 0 0 10px #bbb;
+    -moz-box-shadow: 0 0 10px #bbb;
+    -webkit-box-shadow: 0 0 10px #bbb;
+}
+
+table.reportErrorTable.no-shadow {
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+table.reportErrorTable tr td {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    vertical-align: top;
+    text-align: left;
+}
+
+table.reportErrorTable tr:hover td.content_center,
+table.reportErrorTable tr td.content_center {
+    text-align: center;
+    background-color: #dedede;
+}
+
+table.reportErrorTable tr td.td_left {
+    background-color: #dedede;
+    font-weight: bold;
+}
+
+table.reportErrorTable tr:hover td {
+    background-color: #efefef;
+}
+
+table.reportErrorTable.no-shadow tr:hover td.content_center,
+table.reportErrorTable.no-shadow tr:hover td.td_left {
+    background-color: #dedede;
+}
+
+table.reportErrorTable.no-shadow tr:hover td {
+    background-color: #fff;
+}
+
+span.redirect_info {
+    margin-bottom: 15px;
+    display: block;
+    color: red;
+}

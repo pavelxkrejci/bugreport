@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/stag/db" VERSION="20130130" COMMENT="XMLDB file for the STAG attributes"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="bugreport" COMMENT="">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="false" SEQUENCE="true" COMMENT="" NEXT="username" />
+        <FIELD NAME="username" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" COMMENT="" PREVIOUS="id" NEXT="userid" />
+        <FIELD NAME="userid" TYPE="int" LENGTH="11" NOTNULL="false" SEQUENCE="false" COMMENT="" PREVIOUS="username" NEXT="current_url" />
+        <FIELD NAME="current_url" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" COMMENT="" PREVIOUS="userid" NEXT="report_image" />
+        <FIELD NAME="report_image" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" COMMENT="" PREVIOUS="current_url" NEXT="report_image_o" />
+        <FIELD NAME="report_image_o" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" COMMENT="" PREVIOUS="report_image" NEXT="error_desc" />
+        <FIELD NAME="error_desc" TYPE="text" LENGTH="" NOTNULL="false" SEQUENCE="false" COMMENT="" PREVIOUS="report_image_o" NEXT="browser" />
+        <FIELD NAME="browser" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" COMMENT="" PREVIOUS="error_desc" NEXT="system" />
+        <FIELD NAME="system" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" COMMENT="" PREVIOUS="browser" NEXT="log" />
+        <FIELD NAME="log" TYPE="text" LENGTH="" NOTNULL="false" SEQUENCE="false" COMMENT="" PREVIOUS="system" NEXT="screen_res" />
+        <FIELD NAME="screen_res" TYPE="char" LENGTH="50" NOTNULL="false" SEQUENCE="false" COMMENT="" PREVIOUS="log" NEXT="browser_res" />
+        <FIELD NAME="browser_res" TYPE="char" LENGTH="50" NOTNULL="false" SEQUENCE="false" COMMENT="" PREVIOUS="screen_res" NEXT="ts" />
+        <FIELD NAME="ts" TYPE="datetime" LENGTH="" NOTNULL="true" SEQUENCE="false" COMMENT="" PREVIOUS="browser_res" />
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>
